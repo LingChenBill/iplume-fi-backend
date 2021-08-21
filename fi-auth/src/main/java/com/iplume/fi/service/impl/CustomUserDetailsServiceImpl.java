@@ -31,7 +31,7 @@ public class CustomUserDetailsServiceImpl implements UserDetailsService {
         FiUser result = userRepository.findByLoginEmail(userName);
         if (result == null) {
             log.error("fi-auth: CustomUserDetailsServiceImpl: loadUserByUsername -> {}", "当前用户不存在!");
-            return null;
+            throw new UsernameNotFoundException(String.format("No user found with username '%s'.", userName));
         }
 
         User user = new User(

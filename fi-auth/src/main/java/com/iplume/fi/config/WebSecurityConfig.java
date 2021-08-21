@@ -1,5 +1,6 @@
 package com.iplume.fi.config;
 
+import com.iplume.fi.security.auth.CustomAuthenticationEntryPoint;
 import com.iplume.fi.security.auth.TokenAuthenticationFilter;
 import com.iplume.fi.service.impl.CustomUserDetailsServiceImpl;
 import com.iplume.fi.security.JwtHelper;
@@ -30,11 +31,19 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    CustomUserDetailsServiceImpl customUserDetailsService;
+    private final CustomUserDetailsServiceImpl customUserDetailsService;
 
-    @Autowired
-    JwtHelper jwtHelper;
+    private final JwtHelper jwtHelper;
+
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
+    public WebSecurityConfig(CustomUserDetailsServiceImpl customUserDetailsService,
+                             JwtHelper jwtHelper,
+                             CustomAuthenticationEntryPoint customAuthenticationEntryPoint) {
+        this.customUserDetailsService = customUserDetailsService;
+        this.jwtHelper = jwtHelper;
+        this.customAuthenticationEntryPoint = customAuthenticationEntryPoint;
+    }
 
     @Bean
     @Override
@@ -57,7 +66,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
-                // .exceptionHandling().authenticationEntryPoint( restAuthenticationEntryPoint ).and()
+                .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint).and()
                 .authorizeRequests()
                 .antMatchers(
                         HttpMethod.GET,
