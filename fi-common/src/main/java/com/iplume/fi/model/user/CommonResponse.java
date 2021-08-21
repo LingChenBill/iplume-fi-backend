@@ -1,4 +1,4 @@
-package com.iplume.fi.vo;
+package com.iplume.fi.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

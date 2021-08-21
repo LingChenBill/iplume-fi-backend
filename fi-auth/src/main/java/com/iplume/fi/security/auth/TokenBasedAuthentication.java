@@ -4,7 +4,7 @@ import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 
 /**
- * Token基本认证.
+ * Token基本认证, 用来帮助JWT身份认证.
  *
  * @author: lingchen
  * @date: 2021/8/19
@@ -17,7 +17,7 @@ public class TokenBasedAuthentication extends AbstractAuthenticationToken {
     private String token;
 
     /**
-     * priciple.
+     * principle.
      */
     private final UserDetails principle;
 

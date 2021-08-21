@@ -1,5 +1,6 @@
-package com.iplume.fi.model;
+package com.iplume.fi.vo;
 
+import com.iplume.fi.entity.FiAuthority;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,6 +8,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * user对象.
@@ -29,9 +31,14 @@ public class User implements UserDetails {
      */
     private String password;
 
+    /**
+     * 权限.
+     */
+    private List<FiAuthority> authorities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return this.authorities;
     }
 
     @Override

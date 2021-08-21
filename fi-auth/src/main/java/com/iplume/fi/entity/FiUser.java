@@ -69,9 +69,10 @@ public class FiUser {
      * @param loginEmail 邮件名称.
      * @param password   密码.
      */
-    public FiUser(String loginEmail, String password) {
+    public FiUser(String loginEmail, String password, List<FiAuthority> authorities) {
         this.loginEmail = loginEmail;
         this.password = password;
+        this.authorities = authorities;
         this.createTime = new Date();
         this.updateTime = this.createTime;
     }

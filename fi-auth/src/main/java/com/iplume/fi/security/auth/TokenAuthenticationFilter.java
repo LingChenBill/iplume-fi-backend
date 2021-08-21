@@ -1,6 +1,7 @@
 package com.iplume.fi.security.auth;
 
 import com.iplume.fi.security.JwtHelper;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
+ * JWT过滤器，整个程序要依赖它来识别jwt跟用户.
+ *
  * @author: lingchen
  * @date: 2021/8/19
  */
@@ -27,13 +30,16 @@ public class TokenAuthenticationFilter extends OncePerRequestFilter {
         this.userDetailsService = userDetailsService;
     }
 
-
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest request,
+                                    HttpServletResponse response,
+                                    FilterChain filterChain) throws ServletException, IOException {
         String userName;
+        // 从request中获取token.
         String authToken = jwtHelper.getToken(request);
 
-        if (authToken != null) {
+        if (!StringUtils.isEmpty(authToken)) {
+            // 从token中获取用户名.
             userName = jwtHelper.getUserNameFromToken(authToken);
             if (userName != null) {
                 // get user.

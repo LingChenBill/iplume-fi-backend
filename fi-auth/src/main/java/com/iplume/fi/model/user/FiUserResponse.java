@@ -1,10 +1,11 @@
-package com.iplume.fi.vo;
+package com.iplume.fi.model.user;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
+ * 用户返回对象.
  *
  * @author: lingchen
  * @date: 2021/8/19
@@ -20,11 +21,6 @@ public class FiUserResponse {
     private String loginEmail;
 
     /**
-     * 密码.
-     */
-    private String password;
-
-    /**
      * token.
      */
     private String token;
@@ -32,6 +28,6 @@ public class FiUserResponse {
     /**
      * 过期时间.
      */
-    private int expire;
+    private Long expire;
 
 }

@@ -26,7 +26,7 @@ public class FiAuthority implements GrantedAuthority {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long Id;
+    Long id;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "name")

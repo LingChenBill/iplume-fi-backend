@@ -1,18 +1,12 @@
 package com.iplume.fi.service.impl;
 
-import com.iplume.fi.dao.FiUserRepository;
-import com.iplume.fi.entity.FiUser;
 import com.iplume.fi.exception.FiException;
-import com.iplume.fi.model.User;
-import com.iplume.fi.service.FiUserService;
-import com.iplume.fi.utils.AesUtil;
+import com.iplume.fi.vo.User;
 import com.iplume.fi.security.JwtHelper;
-import com.iplume.fi.vo.FiUserRequest;
-import com.iplume.fi.vo.FiUserResponse;
+import com.iplume.fi.service.FiUserService;
+import com.iplume.fi.model.user.FiUserRequest;
+import com.iplume.fi.model.user.FiUserResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.codec.binary.Hex;
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -31,20 +25,22 @@ import org.springframework.stereotype.Service;
 @Slf4j
 public class FiUserServiceImpl implements FiUserService {
 
-    @Autowired
-    private JwtHelper jwtHelper;
-
-    @Autowired
-    private AuthenticationManager authenticationManager;
-
     @Value("${aes.encrypt_key}")
     private String encryptKey;
 
-    @Autowired
-    private FiUserRepository userRepository;
+    private final JwtHelper jwtHelper;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
+
+    private final PasswordEncoder passwordEncoder;
+
+    public FiUserServiceImpl(JwtHelper jwtHelper,
+                             AuthenticationManager authenticationManager,
+                             PasswordEncoder passwordEncoder) {
+        this.jwtHelper = jwtHelper;
+        this.authenticationManager = authenticationManager;
+        this.passwordEncoder = passwordEncoder;
+    }
 
     /**
      * 登录处理.
@@ -72,11 +68,10 @@ public class FiUserServiceImpl implements FiUserService {
 
         String token = jwtHelper.generateToken(user.getUsername());
 
-        int expires = jwtHelper.getExpiredIn();
+        long expires = jwtHelper.getExpiredIn();
 
         return new FiUserResponse(
                 request.getLoginEmail(),
-                "",
                 token,
                 expires
         );

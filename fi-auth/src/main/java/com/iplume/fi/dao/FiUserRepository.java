@@ -4,7 +4,7 @@ import com.iplume.fi.entity.FiUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
- * fiuser repository.
+ * fi-user repository.
  *
  * @author: lingchen
  * @date: 2021/8/19

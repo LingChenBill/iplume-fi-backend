@@ -20,6 +20,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 
 /**
  * web security config.
+ * <p>
+ * 配置文件，用来配置安全以及过滤组件.
  *
  * @author: lingchen
  * @date: 2021/8/19

@@ -1,8 +1,8 @@
 package com.iplume.fi.service;
 
 import com.iplume.fi.exception.FiException;
-import com.iplume.fi.vo.FiUserRequest;
-import com.iplume.fi.vo.FiUserResponse;
+import com.iplume.fi.model.user.FiUserRequest;
+import com.iplume.fi.model.user.FiUserResponse;
 
 /**
  * @author: lingchen
